@@ -26,10 +26,16 @@ import math
 
 LAT, LON = -29.2563, -70.7397          # La Silla
 
-# ---- June 4+ 2026 epoch ----------------------------------------------------
-A_JUNE_RA = (-1.91220, -0.02062, -0.01702, 0.03026, -0.00848)
-A_JUNE_DEC = (-0.44861, -0.00165, -0.04661)
+# ---- flexure terms: GLOBAL cross-epoch fit (Apr 10 - Jun 19 2026, 4610 exp,
+# per-night zero points; see pointing/flexure_all_epochs.py).  The flexure is
+# a property of the telescope: all four engineering epochs (incl. pre-stow)
+# lie on the same curve.  Only a0/b0 re-zero after engineering events.
+# a0/b0 below = June-2026 epoch, refit against these flexure terms.
+A_JUNE_RA = (-1.92916, 0.00078, -0.01361, 0.03608, -0.01553)
+A_JUNE_DEC = (-0.45011, 0.00083, -0.04654)
 CONST_JUNE_RA, CONST_JUNE_DEC = -1.9472, -0.4839    # epoch medians (no HA term)
+# previous June-only fit (single epoch ZP, superseded):
+#   (-1.91220, -0.02062, -0.01702, 0.03026, -0.00848) / (-0.44861, -0.00165, -0.04661)
 
 
 def _ha_deg(mjd, tele_ra):

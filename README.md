@@ -121,8 +121,21 @@ recommended operating mode. They are included for completeness/experiments.
 
 ## The pointing model (`true_to_tele.py`)
 
-June-2026 epoch, fit to 523 exposures / 8 nights (robust scatter ~9″ RA on-sky,
-~12″ Dec):
+Flexure terms are a **global cross-epoch fit** (Apr 10 – Jun 19 2026, 4610
+exposures, per-night zero points; `analysis/flexure_all_epochs.py`). All four
+engineering epochs — including pre-stow — lie on the same flexure curve
+(`validation/flexure_all_epochs.png`), confirming that **only a₀/b₀ re-zero
+after engineering events**:
+
+```
+a1..a4 = +0.00078  -0.01361  +0.03608  -0.01553   (dRA terms, deg)
+b1,b2  = +0.00083  -0.04654                        (dDec terms, deg)
+```
+
+**Operational confirmation:** solving a₀/b₀ from just the first 3 exposures
+of each night and applying this shared flexure model predicts the pointing
+for the rest of the night to **8″ (RA, on-sky) / 13″ (Dec) at p68** and
+20″/27″ at p95 — versus 39″/28″ (p68) with a constant offset only.
 
 ```
 dRA  = a0 + a1·sinH + a2·cosH + a3·sinH·tanδ + a4·cosH·tanδ

@@ -14,11 +14,13 @@ Per raw exposure (single MEF, 32 chip HDUs):
   5. offset  dRA = FP_RA - TELE_RA, dDec = FP_Dec - TELE_DEC,
   6. subtract the known HA-flexure terms (June-2026 model) -> a0, b0.
 
-The flexure model (fit 20260604-19, robust ~9"/12"):
+The flexure model:
   dRA  = a0 + a1 sinH + a2 cosH + a3 sinH tanD + a4 cosH tanD
   dDec = b0 + b1 sinH + b2 cosH
-NOTE: a1..a4/b1..b2 were fit in the June-2026 epoch; they are assumed stable
-across engineering events (only a0/b0 re-zero).  H is computed from DATE-OBS.
+a1..a4/b1..b2 are the GLOBAL cross-epoch fit (Apr-Jun 2026, 4610 exposures
+with per-night zero points): all four engineering epochs, including
+pre-stow, lie on the same flexure curve — CONFIRMED stable, only a0/b0
+re-zero after engineering events.  H is computed from DATE-OBS.
 
 Usage:
   python night_zero_point.py raw1.fits.fz [raw2 ...] [--no-calib] [--json out]
@@ -52,8 +54,9 @@ CENPIX = (1024.0, 2048.0)        # chip center (FITS 1-indexed x, y)
 
 # ---- La Silla + June-2026 flexure model (from pointing/true_to_tele.py) ----
 LAT, LON = -29.2563, -70.7397
-A_RA = (-1.91220, -0.02062, -0.01702, 0.03026, -0.00848)   # a0..a4
-A_DEC = (-0.44861, -0.00165, -0.04661)                     # b0..b2
+# a0/b0 = June-2026 epoch reference; a1../b1.. = global cross-epoch flexure
+A_RA = (-1.92916, 0.00078, -0.01361, 0.03608, -0.01553)    # a0..a4
+A_DEC = (-0.45011, 0.00083, -0.04654)                      # b0..b2
 FLAT_DATE = "20260421"
 
 
